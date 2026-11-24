@@ -2,6 +2,11 @@
   "schemaVersion": 2,
   "kind": "app",
   "name": "mapbox-trial",
+  "deployment": {
+    "organizationId": "7b814a12-9c26-4aa5-a3e2-ff15349f8cf3",
+    "workspaceId": "da33ff91-ac5d-436e-888f-68017fbd23bb",
+    "appId": "01a20cba-3b93-733f-9a61-bbdc3d1f94a8"
+  },
   "modules": [
     {
       "type": "app",

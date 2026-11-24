@@ -86,6 +86,12 @@ export default defineConfig(async ({ mode }) => ({
       // to a browser that accepts them: `node .output/server/index.mjs` compresses nothing on the
       // fly, so without them a page's JS and CSS cross the wire uncompressed.
       compressPublicAssets: { brotli: true, gzip: true },
+      rollupConfig: {
+        // The Mistral SDK lazy-loads its optional peers (e.g. @livekit/rtc-node) only when voice
+        // sessions are used; bundling it would fail on those missing modules. Keep it external —
+        // the runtime image ships node_modules, and dev SSR externalizes deps by default.
+        external: ["@mistralai/mistralai"],
+      },
     }),
     viteReact({ compiler: true }),
     ...(await contributedPlugins()),

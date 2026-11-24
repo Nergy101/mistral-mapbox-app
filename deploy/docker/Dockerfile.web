@@ -53,8 +53,13 @@ ARG VITE_API_URL=""
 # build context, so the build takes it as an arg; an ARG is in the environment of this stage's RUN,
 # where vite.config.ts reads it. Left empty, the app shows its default name.
 ARG APP_NAME=""
+# Public Mapbox token for the /map page, baked into the client bundle at build time (mapbox-gl
+# authorizes tiles client-side, so this token is public by design and safe to commit as a default).
+# Override with --build-arg when the platform supports it.
+ARG VITE_MAPBOX_ACCESS_TOKEN="pk.eyJ1IjoibmVyZ3kiLCJhIjoiY2x3dzFicjBmMHZvejJqb2VrdmcwdDRjcCJ9.hWlXDa5ZE7RfpjIppDy3VA"
 ENV NODE_ENV=production \
-    VITE_API_URL=${VITE_API_URL}
+    VITE_API_URL=${VITE_API_URL} \
+    VITE_MAPBOX_ACCESS_TOKEN=${VITE_MAPBOX_ACCESS_TOKEN}
 RUN bun x nx run web:build
 
 FROM node:24-slim AS runtime
